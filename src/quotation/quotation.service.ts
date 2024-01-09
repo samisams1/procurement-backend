@@ -52,6 +52,7 @@ export class QuotationService {
       const quotation = await this.prisma.quotation.findUnique({
         where: {
           id: id,
+         // status:"wait",
         },
         include: {
           supplier: true,

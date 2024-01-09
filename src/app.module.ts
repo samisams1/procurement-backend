@@ -18,6 +18,7 @@ import { SupplierModule } from './supplier/supplier.module';
 import { ProductModule } from './product/product.module';
 import { QuotationModule } from './quotation/quotation.module';
 import { OrderModule } from './order/order.module';
+import { CategoryModule } from './category/category.module';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -38,6 +39,7 @@ import { OrderModule } from './order/order.module';
     ProductModule,
     QuotationModule,
     OrderModule,
+    CategoryModule,
    // InvoiceModule,
   ],
   controllers: [],

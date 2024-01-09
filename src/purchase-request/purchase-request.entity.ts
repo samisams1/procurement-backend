@@ -25,6 +25,4 @@ export class purchaseRequest {
     id: number;
     userId: number; 
   }[];
-
-  
 }

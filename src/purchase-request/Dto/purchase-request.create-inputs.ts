@@ -23,6 +23,30 @@ export class CreateProductInput {
 
   @Field({ nullable: true }) // Add this line if the quotation field is optional
   quotation?: string; // Replace `string` with the appropriate type of the quotation field
+
+  @Field()
+  code: string;
+
+  @Field()
+  partNumber: string;
+
+  @Field()
+  uom: string;
+
+  @Field()
+  quantity: number;
+
+  @Field()
+  mark?: string;
+
+  @Field()
+  Description?: string;
+
+  @Field()
+  manufacturer?: string;
+
+  @Field()
+  model?: string;
 }
 
 @InputType()

@@ -24,8 +24,16 @@ input CreateOrderInput {
 }
 
 input CreateProductInput {
+  Description: String!
+  code: String!
+  manufacturer: String!
+  mark: String!
+  model: String!
+  partNumber: String!
+  quantity: Float!
   quotation: String
   title: String!
+  uom: String!
 }
 
 input CreatePurchaseRequestInput {
@@ -180,8 +188,16 @@ type User {
 }
 
 type product {
+  Description: String!
+  code: String!
   id: Int!
+  manufacturer: String!
+  mark: String!
+  model: String!
+  partNumber: String!
+  quantity: Float!
   title: String!
+  uom: String!
 }
 
 type purchaseRequest {

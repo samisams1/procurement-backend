@@ -57,6 +57,14 @@ model Quotation {
 model Product {
   id         Int              @id @default(autoincrement())
   title      String
+  code        String @default("NA")
+  partNumber  String @default("NA")
+  uom  String @default("NA")
+  quantity Float @default(1)
+  mark  String? @default("NA")
+  Description  String? @default("NA")
+  manufacturer  String? @default("NA")
+  model  String? @default("NA")
   requestId  Int
   request    PurchaseRequest? @relation(fields: [requestId], references: [id])
   productPrices ProductPrice[]
@@ -68,6 +76,7 @@ model ProductPrice {
   price       Float
   quotation   Quotation           @relation(fields: [quotationId], references: [id])
   quotationId Int
+  status  String? @default("wait")
 
 }
 model Supplier {

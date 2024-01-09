@@ -22,6 +22,38 @@ __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
 ], product.prototype, "title", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], product.prototype, "code", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], product.prototype, "partNumber", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], product.prototype, "uom", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], product.prototype, "quantity", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], product.prototype, "mark", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], product.prototype, "Description", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], product.prototype, "manufacturer", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], product.prototype, "model", void 0);
 exports.product = product = __decorate([
     (0, graphql_1.ObjectType)()
 ], product);

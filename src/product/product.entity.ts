@@ -8,4 +8,28 @@ export class product {
   @Field()
   title: string;
 
+  @Field()
+  code: string;
+
+  @Field()
+  partNumber: string;
+
+  @Field()
+  uom: string;
+
+  @Field()
+  quantity: number;
+
+  @Field()
+  mark: string;
+
+  @Field()
+  Description: string;
+
+  @Field()
+  manufacturer: string;
+
+  @Field()
+  model: string;
 }
+

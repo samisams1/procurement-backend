@@ -22,6 +22,7 @@ const supplier_module_1 = require("./supplier/supplier.module");
 const product_module_1 = require("./product/product.module");
 const quotation_module_1 = require("./quotation/quotation.module");
 const order_module_1 = require("./order/order.module");
+const category_module_1 = require("./category/category.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -44,6 +45,7 @@ exports.AppModule = AppModule = __decorate([
             product_module_1.ProductModule,
             quotation_module_1.QuotationModule,
             order_module_1.OrderModule,
+            category_module_1.CategoryModule,
         ],
         controllers: [],
         providers: [prisma_service_1.PrismaService, graphql_subscriptions_1.PubSub],

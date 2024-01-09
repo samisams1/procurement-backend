@@ -101,6 +101,14 @@ let PurchaseRequestService = class PurchaseRequestService {
                     products: {
                         create: products.map((product) => ({
                             title: product.title,
+                            partNumber: product.partNumber,
+                            code: product.code,
+                            quantity: product.quantity,
+                            model: product.model,
+                            uom: product.uom,
+                            manufacturer: product.manufacturer,
+                            mark: product.mark,
+                            Description: product.Description
                         })),
                     },
                     suppliers: {

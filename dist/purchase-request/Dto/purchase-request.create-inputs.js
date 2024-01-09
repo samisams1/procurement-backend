@@ -44,6 +44,38 @@ __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
 ], CreateProductInput.prototype, "quotation", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateProductInput.prototype, "code", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateProductInput.prototype, "partNumber", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateProductInput.prototype, "uom", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CreateProductInput.prototype, "quantity", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateProductInput.prototype, "mark", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateProductInput.prototype, "Description", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateProductInput.prototype, "manufacturer", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreateProductInput.prototype, "model", void 0);
 exports.CreateProductInput = CreateProductInput = __decorate([
     (0, graphql_1.InputType)()
 ], CreateProductInput);
