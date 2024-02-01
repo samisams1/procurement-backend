@@ -39,6 +39,14 @@ __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", Number)
 ], Quotation.prototype, "shippingPrice", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => graphql_1.Int, { nullable: true }),
+    __metadata("design:type", Number)
+], Quotation.prototype, "purchaseRequestId", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Date)
+], Quotation.prototype, "createdAt", void 0);
 exports.Quotation = Quotation = __decorate([
     (0, graphql_1.ObjectType)()
 ], Quotation);

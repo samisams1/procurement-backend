@@ -34,6 +34,14 @@ __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
 ], CreateQuotationInput.prototype, "status", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => graphql_1.Int),
+    __metadata("design:type", Number)
+], CreateQuotationInput.prototype, "requestId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => graphql_1.Int, { nullable: true }),
+    __metadata("design:type", Number)
+], CreateQuotationInput.prototype, "purchaseRequestId", void 0);
 exports.CreateQuotationInput = CreateQuotationInput = __decorate([
     (0, graphql_1.InputType)()
 ], CreateQuotationInput);

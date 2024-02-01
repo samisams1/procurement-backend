@@ -54,6 +54,10 @@ __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
 ], product.prototype, "model", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], product.prototype, "status", void 0);
 exports.product = product = __decorate([
     (0, graphql_1.ObjectType)()
 ], product);

@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PurchaseRequestService } from './purchase-request.service';
 import { PrismaClient, PurchaseRequest } from '@prisma/client';
 import { purchaseRequest } from './purchase-request.entity';
@@ -53,11 +53,37 @@ async purchaseRequest(@Args('id') id: number) {
   return this.purchaseRequestService.purchaseRequestsById(id);
 }
 @Query(() => [purchaseRequest])
+async purchaseRequestsByUSerId(@Args('userId') userId: number) {
+  return this.purchaseRequestService.purchaseRequestsByUSerId(userId);
+}
+@Query(() => [purchaseRequest])
 async purchaseRequestBySupplier(@Args('id') id: number) {
   return this.purchaseRequestService.purchaseRequestsBySupplierId(id);
 }
+// get all 
+@Query(()=>[purchaseRequest])
+async allPurchaseRequests(){
+    return this.purchaseRequestService.allPurchaseRequests();
+}
+// bellow is all distiict
  @Query(()=>[purchaseRequest])
     async purchaseRequests(){
         return this.purchaseRequestService.getAllPurchaseRequests();
     }
+    @Query(() => Int)
+    async countrequests(): Promise<number> {
+      const count = await this.purchaseRequestService.coutRequest();
+      return count;
+    } 
+
+    @Query(() => Int)
+async countPurchaseRequestBystatus(@Args('status') status:string, @Args('userId') userId:number ): Promise<number> {
+  const count = await this.purchaseRequestService.countPurchaseRequestByStatus(status,userId);
+  return count;
+} 
+@Query(() => Int)
+async countAllRequestBystatus(@Args('status') status:string  ): Promise<number> {
+  const count = await this.purchaseRequestService.countAllRequestBystatus(status);
+  return count;
+} 
 }

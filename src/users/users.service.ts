@@ -6,14 +6,33 @@ import fs from 'fs';
 
 import * as bcrypt from 'bcrypt';
 import { UpdateUserInput } from './dto/update-user.input';
+import { category } from 'src/category/category.entity';
+import { VerificationService } from 'src/verification/verification.service';
+import { MailerService } from 'src/mailer/mailer.service';
+
 @Injectable()
 export class UsersService {
   private prisma: PrismaClient
   private readonly memcachedService:MemcachedService;
   private tokenMap: Map<string, string> = new Map();
- constructor(memcachedService: MemcachedService) {
+  private readonly verificationService: VerificationService;
+  private readonly mailerService: MailerService;
+  
+ /*constructor(memcachedService: MemcachedService) {
     this.prisma = new PrismaClient();
     this.memcachedService = memcachedService;
+    
+  }*/
+
+  constructor(
+    memcachedService: MemcachedService,
+    verificationService: VerificationService,
+    mailerService: MailerService,
+  ) {
+    this.prisma = new PrismaClient();
+   // this.memcachedService = memcachedService;
+    this.verificationService = verificationService; // Inject the verification service
+    this.mailerService = mailerService; // Inject the mailer service
   }
   async users(): Promise<User[]> {
     const users = await this.prisma.user.findMany();
@@ -23,34 +42,33 @@ export class UsersService {
     const user = await this.prisma.user.findUnique({where:{id}});
     return user;
   }
-  /*async create(input: CreateUserInput): Promise<User> {
-    try {
-      const { username, email, password, firstName, lastName,role } = input;
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      const user = await this.prisma.user.create({
-        data: {
-          firstName,
-          lastName,
-          username,
-          email,
-          password: hashedPassword,
-          phoneNumber: "+251973316377",
-          address: "Addis Ababa",
-          role:role
-        },
-      });
-
-      return user;
-    } catch (error) {
-      throw error.message;
-    }
-  } */
+ 
   async create(input: CreateUserInput): Promise<User> {
     try {
-      const { username, email, password, firstName, lastName, role } = input;
+      const { username, email, password, firstName, lastName, role, categoryId } = input;
       const hashedPassword = await bcrypt.hash(password, 10);
-  
+       // Check if the username already exists
+    const existingUserByUsername = await this.prisma.user.findUnique({ where: { username } });
+    if (existingUserByUsername) {
+      throw new Error('Username already exists');
+    }
+
+    // Check if the email already exists
+    const existingUserByEmail = await this.prisma.user.findUnique({ where: { email } });
+    if (existingUserByEmail) {
+      throw new Error('Email already exists');
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      throw new Error('Invalid email format');
+    }
+      // Password strength validation
+      const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{6,}$/;
+      if (!passwordRegex.test(password)) {
+        throw new Error('Password should be at least 6 characters long and contain at least one special character and one number');
+      }
       const user = await this.prisma.user.create({
         data: {
           firstName,
@@ -66,37 +84,35 @@ export class UsersService {
           suppliers: true, // Include the suppliers relation in the created user
         },
       });
-  
+      
+      const verificationToken = await this.verificationService.createVerificationToken(user.id);
+     // const verificationUrl = `https://itrustu2.netlify.app/verify?token=${verificationToken}`; // Replace with your actual verification URL
+     const verificationUrl = `http://localhost:3000/verify?token=${verificationToken}`;
+      await this.mailerService.sendVerificationEmail(email, verificationUrl);
+
       if (role === "SUPPLIER") {
         // Create a new Supplier record with the userId set to the id of the created User
         await this.prisma.supplier.create({
           data: {
             userId: user.id,
+            categoryId: categoryId,
           },
         });
       }
-  
+
       return user;
     } catch (error) {
       throw error.message;
     }
   }
-  async update(id: number, updateStoreDto: UpdateUserInput):Promise<User> {
-    const { firstName,lastName,username,email,role,status } = updateStoreDto;
-    return this.prisma.user.update({
-      where: {
-        id,
-      },
-      data: {
-        firstName,
-        lastName,
-        username,
-        email,
-       // role,
-      // status
-      },
+  async update(id: number, input: UpdateUserInput): Promise<User> {
+    const user = await this.prisma.user.update({
+      where: { id },
+      data: input,
     });
+    return user;
   }
+
   async delete(id:number):Promise<User>{
       return this.prisma.user.delete({where:{id}});
     }
@@ -214,7 +230,67 @@ export class UsersService {
       // Return the file path or any other relevant response
       return savePath;
     }
-
+    async verifyUser(token: string) {
+      try {
+        const verification = await this.prisma.verification.findUnique({
+          where: {
+            token: token,
+          },
+          include: {
+            user: true,
+          },
+        });
+    
+        if (!verification || !verification.user) {
+          return { success: false };
+        }
+    
+        // Update the user's verification status
+        await this.prisma.user.update({
+          where: {
+            id: verification.user.id,
+          },
+          data: {
+            isVerified: true,
+          },
+        });
+    
+        return { success: true };
+      } catch (error) {
+        // Handle any errors that occur during the verification process
+        console.log(error);
+        throw new Error('An error occurred during user verification.');
+      }
+    }
+    async findByEmail(email: string): Promise<User | null> {
+      return this.prisma.user.findFirst({ 
+        where:{
+          email:email
+        }
+       });
+    }
+    async resetPassword(email: string, password: string, token: string): Promise<User> {
+      // Validate the token and perform the password reset
+      // Implement your own logic here, such as checking if the token is valid and updating the user's password
+    
+      // Example implementation:
+      const user = await this.findByEmail(email);
+      if (!user) {
+        throw new Error('User not found');
+      }
+    
+      if (user.resetPasswordToken !== token) {
+        throw new Error('Invalid token');
+      }
+    
+      user.password = password;
+      user.resetPasswordToken = null;
+    
+      // Save the updated user in the database
+      // Add your code here to update the user in your data source (e.g., using Prisma)
+    
+      return user;
+    }
 }
 
 

@@ -1,5 +1,6 @@
 export declare class CreateOrderDetailInput {
     title: string;
+    productId: number;
     price: number;
     quantity: number;
 }

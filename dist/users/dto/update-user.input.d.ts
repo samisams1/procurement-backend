@@ -1,9 +1,9 @@
 export declare class UpdateUserInput {
     email?: string;
     username?: string;
+    categoryId?: number;
     firstName?: string;
     role?: EnumRole;
-    status?: StatusEnum;
     lastName?: string;
     password?: string;
 }

@@ -16,33 +16,68 @@ exports.NotificationResolver = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const notification_service_1 = require("./notification.service");
 const notification_dto_1 = require("./Dto/notification.dto");
+const createNotificationInput_1 = require("./Dto/createNotificationInput");
 let NotificationResolver = class NotificationResolver {
     constructor(notificationService) {
         this.notificationService = notificationService;
     }
-    async sendNotification(recipientId, message, soundUrl) {
-        return this.notificationService.sendNotification(recipientId, message, soundUrl);
-    }
     notification() {
         return this.notificationService.pubSub.asyncIterator('notification');
+    }
+    async notitfications() {
+        return this.notificationService.getAllNotifications();
+    }
+    async countNotifications() {
+        const count = await this.notificationService.countNotifications();
+        return count;
+    }
+    async createNotification(input) {
+        return this.notificationService.createNotification(input);
+    }
+    async updateNotification(id) {
+        try {
+            const updateNotification = await this.notificationService.updateotification(id);
+            return updateNotification;
+        }
+        catch (error) {
+            throw new Error('Failed to update notification');
+        }
     }
 };
 exports.NotificationResolver = NotificationResolver;
 __decorate([
     (0, graphql_1.Mutation)(() => Boolean),
-    __param(0, (0, graphql_1.Args)('recipientId')),
-    __param(1, (0, graphql_1.Args)('message')),
-    __param(2, (0, graphql_1.Args)('soundUrl')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, String, String]),
-    __metadata("design:returntype", Promise)
-], NotificationResolver.prototype, "sendNotification", null);
-__decorate([
     (0, graphql_1.Subscription)(() => notification_dto_1.Notification),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Object)
 ], NotificationResolver.prototype, "notification", null);
+__decorate([
+    (0, graphql_1.Query)(() => [notification_dto_1.Notification]),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], NotificationResolver.prototype, "notitfications", null);
+__decorate([
+    (0, graphql_1.Query)(() => graphql_1.Int),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], NotificationResolver.prototype, "countNotifications", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => notification_dto_1.Notification),
+    __param(0, (0, graphql_1.Args)('input')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [createNotificationInput_1.NotificationInput]),
+    __metadata("design:returntype", Promise)
+], NotificationResolver.prototype, "createNotification", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => notification_dto_1.Notification),
+    __param(0, (0, graphql_1.Args)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], NotificationResolver.prototype, "updateNotification", null);
 exports.NotificationResolver = NotificationResolver = __decorate([
     (0, graphql_1.Resolver)(),
     __metadata("design:paramtypes", [notification_service_1.NotificationService])

@@ -18,21 +18,70 @@ let NotificationService = class NotificationService {
         this.prisma = new client_1.PrismaClient();
         this.pubSub = new graphql_subscriptions_1.PubSub();
     }
-    async sendNotification(recipientId, message, soundUrl) {
-        const recipient = await this.prisma.user.findUnique({ where: { id: recipientId } });
-        if (recipient) {
-            console.log(`Sending notification to recipient: ${recipient.username}`);
-            console.log(`Message: ${message}`);
-            console.log(`Sound URL: ${soundUrl}`);
-            const notification = {
-                recipientId: recipient.id,
-                message,
-                soundUrl,
-            };
-            this.pubSub.publish('notification', { notification });
-            return true;
+    async createNotification(notificationData) {
+        try {
+            const notification = await this.prisma.notification.create({
+                data: notificationData,
+            });
+            return notification;
         }
-        return false;
+        catch (error) {
+            throw new Error(`Failed to create notification: ${error.message}`);
+        }
+    }
+    async getNotificationById(notificationId) {
+        try {
+            const notification = await this.prisma.notification.findUnique({
+                where: { id: notificationId },
+            });
+            return notification;
+        }
+        catch (error) {
+            throw new Error(`Failed to retrieve notification: ${error.message}`);
+        }
+    }
+    async countNotifications() {
+        const orders = async () => {
+            try {
+                const count = await this.prisma.notification.count({
+                    where: {
+                        status: "new"
+                    }
+                });
+                return count;
+            }
+            catch (error) {
+                throw new Error('An error occurred while counting products.');
+            }
+        };
+        return orders();
+    }
+    async getAllNotifications() {
+        try {
+            const notifications = await this.prisma.notification.findMany();
+            return notifications;
+        }
+        catch (error) {
+            throw new Error(`Failed to retrieve notifications: ${error.message}`);
+        }
+    }
+    async deleteNotification(notificationId) {
+        try {
+            const notification = await this.prisma.notification.delete({
+                where: { id: notificationId },
+            });
+            return notification;
+        }
+        catch (error) {
+            throw new Error(`Failed to delete notification: ${error.message}`);
+        }
+    }
+    async updateotification(id) {
+        const updateNotification = await this.prisma.notification.update({
+            where: { id },
+            data: { status: "seen" },
+        });
+        return updateNotification;
     }
 };
 exports.NotificationService = NotificationService;

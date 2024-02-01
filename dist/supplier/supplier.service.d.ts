@@ -1,3 +1,4 @@
+import { supplier } from './supplier.entity';
 export declare class SupplierService {
     private prisma;
     constructor();
@@ -16,9 +17,14 @@ export declare class SupplierService {
             updatedAt: Date;
             roleId: number;
             status: import(".prisma/client").$Enums.Status;
+            isVerified: boolean;
+            resetPasswordToken: string;
         };
     } & {
         id: number;
         userId: number;
+        name: string;
+        categoryId: number;
     })[]>;
+    getSuppliersByCategoryId(categoryId: number): Promise<supplier[]>;
 }

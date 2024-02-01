@@ -4,6 +4,8 @@ export declare class CreateQuotationInput {
     shippingPrice: number;
     productPrices: ProductPriceInput[];
     status: string;
+    requestId: number;
+    purchaseRequestId?: number;
 }
 export declare class ProductPriceInput {
     productId: number;

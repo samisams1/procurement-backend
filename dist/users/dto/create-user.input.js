@@ -38,6 +38,10 @@ __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
 ], CreateUserInput.prototype, "password", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], CreateUserInput.prototype, "categoryId", void 0);
 exports.CreateUserInput = CreateUserInput = __decorate([
     (0, graphql_1.InputType)()
 ], CreateUserInput);

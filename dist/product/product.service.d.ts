@@ -13,5 +13,6 @@ export declare class ProductService {
         manufacturer: string;
         model: string;
         requestId: number;
+        status: string;
     }[]>;
 }

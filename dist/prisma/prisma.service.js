@@ -22,6 +22,9 @@ let PrismaService = class PrismaService {
     get product() {
         return this.prisma.product;
     }
+    get verification() {
+        return this.prisma.verification;
+    }
     async onModuleDestroy() {
         await this.prisma.$disconnect();
     }

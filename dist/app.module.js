@@ -23,6 +23,14 @@ const product_module_1 = require("./product/product.module");
 const quotation_module_1 = require("./quotation/quotation.module");
 const order_module_1 = require("./order/order.module");
 const category_module_1 = require("./category/category.module");
+const shipping_module_1 = require("./shipping/shipping.module");
+const payment_module_1 = require("./payment/payment.module");
+const invoice_module_1 = require("./invoice/invoice.module");
+const search_module_1 = require("./search/search.module");
+const verification_service_1 = require("./verification/verification.service");
+const verification_module_1 = require("./verification/verification.module");
+const mailer_module_1 = require("./mailer/mailer.module");
+const forgot_password_module_1 = require("./forgot-password/forgot-password.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -46,9 +54,16 @@ exports.AppModule = AppModule = __decorate([
             quotation_module_1.QuotationModule,
             order_module_1.OrderModule,
             category_module_1.CategoryModule,
+            shipping_module_1.ShippingModule,
+            payment_module_1.PaymentModule,
+            invoice_module_1.InvoiceModule,
+            search_module_1.SearchModule,
+            verification_module_1.VerificationModule,
+            mailer_module_1.MailerModule,
+            forgot_password_module_1.ForgotPasswordModule,
         ],
         controllers: [],
-        providers: [prisma_service_1.PrismaService, graphql_subscriptions_1.PubSub],
+        providers: [prisma_service_1.PrismaService, graphql_subscriptions_1.PubSub, verification_service_1.VerificationService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

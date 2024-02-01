@@ -24,16 +24,16 @@ __decorate([
 ], UpdateUserInput.prototype, "username", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", Number)
+], UpdateUserInput.prototype, "categoryId", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
 ], UpdateUserInput.prototype, "firstName", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
 ], UpdateUserInput.prototype, "role", void 0);
-__decorate([
-    (0, graphql_1.Field)({ nullable: true }),
-    __metadata("design:type", String)
-], UpdateUserInput.prototype, "status", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)

@@ -6,7 +6,4 @@ export class supplier {
   id: number;
   @Field()
   name: String;
-
-  @Field()
-  email: String;
 }

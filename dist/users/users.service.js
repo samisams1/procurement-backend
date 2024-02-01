@@ -15,11 +15,14 @@ const client_1 = require("@prisma/client");
 const memcached_service_1 = require("../memcached/memcached.service");
 const fs_1 = require("fs");
 const bcrypt = require("bcrypt");
+const verification_service_1 = require("../verification/verification.service");
+const mailer_service_1 = require("../mailer/mailer.service");
 let UsersService = class UsersService {
-    constructor(memcachedService) {
+    constructor(memcachedService, verificationService, mailerService) {
         this.tokenMap = new Map();
         this.prisma = new client_1.PrismaClient();
-        this.memcachedService = memcachedService;
+        this.verificationService = verificationService;
+        this.mailerService = mailerService;
     }
     async users() {
         const users = await this.prisma.user.findMany();
@@ -31,8 +34,24 @@ let UsersService = class UsersService {
     }
     async create(input) {
         try {
-            const { username, email, password, firstName, lastName, role } = input;
+            const { username, email, password, firstName, lastName, role, categoryId } = input;
             const hashedPassword = await bcrypt.hash(password, 10);
+            const existingUserByUsername = await this.prisma.user.findUnique({ where: { username } });
+            if (existingUserByUsername) {
+                throw new Error('Username already exists');
+            }
+            const existingUserByEmail = await this.prisma.user.findUnique({ where: { email } });
+            if (existingUserByEmail) {
+                throw new Error('Email already exists');
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                throw new Error('Invalid email format');
+            }
+            const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{6,}$/;
+            if (!passwordRegex.test(password)) {
+                throw new Error('Password should be at least 6 characters long and contain at least one special character and one number');
+            }
             const user = await this.prisma.user.create({
                 data: {
                     firstName,
@@ -48,10 +67,14 @@ let UsersService = class UsersService {
                     suppliers: true,
                 },
             });
+            const verificationToken = await this.verificationService.createVerificationToken(user.id);
+            const verificationUrl = `http://localhost:3000/verify?token=${verificationToken}`;
+            await this.mailerService.sendVerificationEmail(email, verificationUrl);
             if (role === "SUPPLIER") {
                 await this.prisma.supplier.create({
                     data: {
                         userId: user.id,
+                        categoryId: categoryId,
                     },
                 });
             }
@@ -61,19 +84,12 @@ let UsersService = class UsersService {
             throw error.message;
         }
     }
-    async update(id, updateStoreDto) {
-        const { firstName, lastName, username, email, role, status } = updateStoreDto;
-        return this.prisma.user.update({
-            where: {
-                id,
-            },
-            data: {
-                firstName,
-                lastName,
-                username,
-                email,
-            },
+    async update(id, input) {
+        const user = await this.prisma.user.update({
+            where: { id },
+            data: input,
         });
+        return user;
     }
     async delete(id) {
         return this.prisma.user.delete({ where: { id } });
@@ -149,10 +165,59 @@ let UsersService = class UsersService {
         });
         return savePath;
     }
+    async verifyUser(token) {
+        try {
+            const verification = await this.prisma.verification.findUnique({
+                where: {
+                    token: token,
+                },
+                include: {
+                    user: true,
+                },
+            });
+            if (!verification || !verification.user) {
+                return { success: false };
+            }
+            await this.prisma.user.update({
+                where: {
+                    id: verification.user.id,
+                },
+                data: {
+                    isVerified: true,
+                },
+            });
+            return { success: true };
+        }
+        catch (error) {
+            console.log(error);
+            throw new Error('An error occurred during user verification.');
+        }
+    }
+    async findByEmail(email) {
+        return this.prisma.user.findFirst({
+            where: {
+                email: email
+            }
+        });
+    }
+    async resetPassword(email, password, token) {
+        const user = await this.findByEmail(email);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        if (user.resetPasswordToken !== token) {
+            throw new Error('Invalid token');
+        }
+        user.password = password;
+        user.resetPasswordToken = null;
+        return user;
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [memcached_service_1.MemcachedService])
+    __metadata("design:paramtypes", [memcached_service_1.MemcachedService,
+        verification_service_1.VerificationService,
+        mailer_service_1.MailerService])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

@@ -19,6 +19,14 @@ import { ProductModule } from './product/product.module';
 import { QuotationModule } from './quotation/quotation.module';
 import { OrderModule } from './order/order.module';
 import { CategoryModule } from './category/category.module';
+import { ShippingModule } from './shipping/shipping.module';
+import { PaymentModule } from './payment/payment.module';
+import { InvoiceModule } from './invoice/invoice.module';
+import { SearchModule } from './search/search.module';
+import { VerificationService } from './verification/verification.service';
+import { VerificationModule } from './verification/verification.module';
+import { MailerModule } from './mailer/mailer.module';
+import { ForgotPasswordModule } from './forgot-password/forgot-password.module';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -40,9 +48,16 @@ import { CategoryModule } from './category/category.module';
     QuotationModule,
     OrderModule,
     CategoryModule,
+    ShippingModule,
+    PaymentModule,
+    InvoiceModule,
+    SearchModule,
+    VerificationModule,
+    MailerModule,
+    ForgotPasswordModule,
    // InvoiceModule,
   ],
   controllers: [],
-  providers: [PrismaService,PubSub],
+  providers: [PrismaService,PubSub, VerificationService],
 })
 export class AppModule {}

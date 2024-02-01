@@ -23,6 +23,17 @@ let SupplierService = class SupplierService {
             }
         });
     }
+    async getSuppliersByCategoryId(categoryId) {
+        return this.prisma.supplier.findMany({
+            where: {
+                categoryId,
+            },
+            include: {
+                category: true,
+                user: true,
+            },
+        });
+    }
 };
 exports.SupplierService = SupplierService;
 exports.SupplierService = SupplierService = __decorate([

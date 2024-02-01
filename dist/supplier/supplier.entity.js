@@ -13,7 +13,6 @@ exports.supplier = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const user_entity_1 = require("../users/entities/user.entity");
 let supplier = class supplier {
-    ;
 };
 exports.supplier = supplier;
 __decorate([
@@ -21,25 +20,21 @@ __decorate([
     __metadata("design:type", Number)
 ], supplier.prototype, "id", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
+    (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], supplier.prototype, "name", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
-    __metadata("design:type", String)
-], supplier.prototype, "email", void 0);
+    (0, graphql_1.Field)(() => graphql_1.Int),
+    __metadata("design:type", Number)
+], supplier.prototype, "categoryId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => user_entity_1.User),
     __metadata("design:type", user_entity_1.User)
 ], supplier.prototype, "user", void 0);
 __decorate([
-    (0, graphql_1.Field)(),
-    __metadata("design:type", Date)
-], supplier.prototype, "createdAt", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    __metadata("design:type", Date)
-], supplier.prototype, "updatedAt", void 0);
+    (0, graphql_1.Field)(() => graphql_1.Int),
+    __metadata("design:type", Number)
+], supplier.prototype, "userId", void 0);
 exports.supplier = supplier = __decorate([
     (0, graphql_1.ObjectType)()
 ], supplier);

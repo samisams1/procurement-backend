@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Notification = exports.SendNotificationInput = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const user_entity_1 = require("../../users/entities/user.entity");
 let SendNotificationInput = class SendNotificationInput {
 };
 exports.SendNotificationInput = SendNotificationInput;
@@ -21,17 +22,25 @@ __decorate([
 __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
-], SendNotificationInput.prototype, "message", void 0);
+], SendNotificationInput.prototype, "soundUrl", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
-], SendNotificationInput.prototype, "soundUrl", void 0);
+], SendNotificationInput.prototype, "type", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [user_entity_1.User]),
+    __metadata("design:type", user_entity_1.User)
+], SendNotificationInput.prototype, "recipient", void 0);
 exports.SendNotificationInput = SendNotificationInput = __decorate([
     (0, graphql_1.InputType)()
 ], SendNotificationInput);
 let Notification = class Notification {
 };
 exports.Notification = Notification;
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Number)
+], Notification.prototype, "id", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", Number)
@@ -44,6 +53,14 @@ __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
 ], Notification.prototype, "soundUrl", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], Notification.prototype, "status", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], Notification.prototype, "type", void 0);
 exports.Notification = Notification = __decorate([
     (0, graphql_1.ObjectType)()
 ], Notification);

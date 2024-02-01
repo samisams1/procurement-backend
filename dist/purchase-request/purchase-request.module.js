@@ -10,12 +10,13 @@ exports.PurchaseRequestModule = void 0;
 const common_1 = require("@nestjs/common");
 const purchase_request_service_1 = require("./purchase-request.service");
 const purchase_request_resolver_1 = require("./purchase-request.resolver");
+const generateReferenceNumber_1 = require("./generateReferenceNumber");
 let PurchaseRequestModule = class PurchaseRequestModule {
 };
 exports.PurchaseRequestModule = PurchaseRequestModule;
 exports.PurchaseRequestModule = PurchaseRequestModule = __decorate([
     (0, common_1.Module)({
-        providers: [purchase_request_service_1.PurchaseRequestService, purchase_request_resolver_1.PurchaseRequestResolver]
+        providers: [purchase_request_service_1.PurchaseRequestService, purchase_request_resolver_1.PurchaseRequestResolver, generateReferenceNumber_1.ReferenceNumberGeneratorService,]
     })
 ], PurchaseRequestModule);
 //# sourceMappingURL=purchase-request.module.js.map

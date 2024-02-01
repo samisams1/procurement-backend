@@ -11,13 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReportResolver = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const monthlyReport_entity_1 = require("./monthlyReport.entity");
 const report_service_1 = require("./report.service");
 let ReportResolver = class ReportResolver {
     constructor(reportService) {
         this.reportService = reportService;
     }
+    async monthlyReport() {
+        return this.reportService.MonthlyReport();
+    }
 };
 exports.ReportResolver = ReportResolver;
+__decorate([
+    (0, graphql_1.Query)(() => [monthlyReport_entity_1.MonthlyReport]),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ReportResolver.prototype, "monthlyReport", null);
 exports.ReportResolver = ReportResolver = __decorate([
     (0, graphql_1.Resolver)(),
     __metadata("design:paramtypes", [report_service_1.ReportService])

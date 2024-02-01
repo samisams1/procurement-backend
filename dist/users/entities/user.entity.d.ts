@@ -10,4 +10,6 @@ export declare class User {
     status: String;
     createdAt: Date;
     updatedAt: Date;
+    isVerified: boolean;
+    resetPasswordToken: string | null;
 }

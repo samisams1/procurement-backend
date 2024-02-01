@@ -1,4 +1,4 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Query, Resolver } from '@nestjs/graphql';
 import { SupplierService } from './supplier.service';
 import { supplier } from './supplier.entity';
 
@@ -8,5 +8,9 @@ export class SupplierResolver {
     @Query(()=>[supplier])
     async suppliers() {
       return this.supplierService.suppliers();
+    }
+    @Query(() => [supplier])
+    async suppliersByCategoryId(@Args('categoryId', { type: () => Int }) categoryId: number): Promise<supplier[]> {
+      return this.supplierService.getSuppliersByCategoryId(categoryId);
     }
 }

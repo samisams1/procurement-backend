@@ -9,4 +9,5 @@ export declare class product {
     Description: string;
     manufacturer: string;
     model: string;
+    status: string;
 }

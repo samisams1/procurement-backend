@@ -6,6 +6,7 @@ import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/auth/gql-auth-guard';
 import { RolesGuard } from 'src/auth/guards/roles.gurd';
 import { UpdateUserInput } from './dto/update-user.input';
+import { ResetPasswordInput } from 'src/forgot-password/dto/ResetPasswordInput.entity';
 //import { GraphQLUpload } from 'graphql-upload';
 
 
@@ -24,7 +25,6 @@ export class UsersResolver {
     const users = await this.usersService.users();
     return users;
   }
-
   @Mutation(() => User)
   async createUser(@Args('input') createUserDto: CreateUserInput): Promise<User> {
     const user = await this.usersService.create(createUserDto);
@@ -66,4 +66,28 @@ export class UsersResolver {
   ): Promise<string> {
     return this.usersService.uploadAvatar(file);
   } */
+  @Mutation(() => Boolean)
+async verifyUser(@Args('token') token: string): Promise<boolean> {
+  try {
+    // Perform the user verification process
+    const result = await this.usersService.verifyUser(token);
+    return result.success;
+  } catch (error) {
+    // Handle any errors that occur during the verification process
+    console.log(error);
+    throw new Error('An error occurred during user verification.');
+  }
+}
+
+@Mutation(() => User)
+async resetPassword(@Args('input') input: ResetPasswordInput): Promise<User> {
+  // Implement your logic to reset the password
+  const { email, password, token } = input;
+
+  // Validate the token and perform the password reset
+  const user = await this.usersService.resetPassword(email, password, token);
+
+  // Return the updated user object
+  return user;
+}
 }

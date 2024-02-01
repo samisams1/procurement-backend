@@ -3,6 +3,10 @@ export declare class CreatePurchaseRequestInput {
     products: CreateProductInput[];
     suppliers: CreateSupplierInput[];
     status: string;
+    remark?: string;
+    addressDetail?: string;
+    estimatedDelivery?: string;
+    selectedType?: string;
 }
 export declare class CreateProductInput {
     title: string;

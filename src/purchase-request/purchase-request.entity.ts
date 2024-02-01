@@ -10,6 +10,9 @@ export class purchaseRequest {
 
   @Field(() => User)
   user: User;
+  
+  @Field(()=>String)
+   referenceNumber:string;
 
   @Field(() => [product])
   products: product[];
@@ -19,10 +22,22 @@ export class purchaseRequest {
 
   @Field()
   status:String;
+  
+  @Field()
+  addressDetail:string;
+
+  @Field()
+  estimatedDelivery:string;
+
+  @Field()
+  remark:string;
+
 
   @Field(() => [supplier])
   suppliers: {
     id: number;
     userId: number; 
   }[];
-}
+
+
+} 

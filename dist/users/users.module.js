@@ -12,13 +12,27 @@ const users_service_1 = require("./users.service");
 const users_resolver_1 = require("./users.resolver");
 const memcached_service_1 = require("../memcached/memcached.service");
 const user_mock_1 = require("./mocks/user.mock");
+const verification_module_1 = require("../verification/verification.module");
+const mailer_module_1 = require("../mailer/mailer.module");
+const mailer_service_1 = require("../mailer/mailer.service");
+const verification_service_1 = require("../verification/verification.service");
+const prisma_service_1 = require("../prisma/prisma.service");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
 exports.UsersModule = UsersModule = __decorate([
     (0, common_1.Module)({
-        providers: [users_resolver_1.UsersResolver, users_service_1.UsersService, memcached_service_1.MemcachedService, user_mock_1.UserMock],
-        exports: [users_service_1.UsersService],
+        imports: [verification_module_1.VerificationModule, mailer_module_1.MailerModule],
+        providers: [
+            users_resolver_1.UsersResolver,
+            users_service_1.UsersService,
+            memcached_service_1.MemcachedService,
+            user_mock_1.UserMock,
+            mailer_service_1.MailerService,
+            verification_service_1.VerificationService,
+            prisma_service_1.PrismaService,
+        ],
+        exports: [],
     })
 ], UsersModule);
 //# sourceMappingURL=users.module.js.map

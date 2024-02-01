@@ -4,7 +4,7 @@ import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 export class product {
   @Field(() => Int)
   id: number;
-  
+
   @Field()
   title: string;
 
@@ -31,5 +31,8 @@ export class product {
 
   @Field()
   model: string;
+
+  @Field()
+  status: string;
 }
 

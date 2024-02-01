@@ -32,4 +32,7 @@ export class User {
 
   @Field()
   updatedAt: Date;
+
+  isVerified: boolean;
+  resetPasswordToken: string | null; // Define the resetPasswordToken property
 }

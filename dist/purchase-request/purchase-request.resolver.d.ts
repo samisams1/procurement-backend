@@ -12,13 +12,47 @@ export declare class PurchaseRequestResolver {
         updatedAt: Date;
         userId: number;
         status: string;
+        remark: string;
+        addressDetail: string;
+        estimatedDelivery: string;
+        imageUrl: string;
+        referenceNumber: string;
     }>;
+    purchaseRequestsByUSerId(userId: number): Promise<{
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: number;
+        status: string;
+        remark: string;
+        addressDetail: string;
+        estimatedDelivery: string;
+        imageUrl: string;
+        referenceNumber: string;
+    }[]>;
     purchaseRequestBySupplier(id: number): Promise<{
         id: number;
         createdAt: Date;
         updatedAt: Date;
         userId: number;
         status: string;
+        remark: string;
+        addressDetail: string;
+        estimatedDelivery: string;
+        imageUrl: string;
+        referenceNumber: string;
+    }[]>;
+    allPurchaseRequests(): Promise<{
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: number;
+        status: string;
+        remark: string;
+        addressDetail: string;
+        estimatedDelivery: string;
+        imageUrl: string;
+        referenceNumber: string;
     }[]>;
     purchaseRequests(): Promise<{
         id: number;
@@ -26,5 +60,13 @@ export declare class PurchaseRequestResolver {
         updatedAt: Date;
         userId: number;
         status: string;
+        remark: string;
+        addressDetail: string;
+        estimatedDelivery: string;
+        imageUrl: string;
+        referenceNumber: string;
     }[]>;
+    countrequests(): Promise<number>;
+    countPurchaseRequestBystatus(status: string, userId: number): Promise<number>;
+    countAllRequestBystatus(status: string): Promise<number>;
 }

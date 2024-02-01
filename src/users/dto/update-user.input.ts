@@ -9,13 +9,15 @@ export class UpdateUserInput {
   username?: string;
 
   @Field({ nullable: true })
+  categoryId?: number;
+
+
+  @Field({ nullable: true })
   firstName?: string;
 
   @Field({ nullable: true })
   role?: EnumRole;
 
-  @Field({ nullable: true })
-  status?: StatusEnum;
 
   @Field({ nullable: true })
   lastName?: string;

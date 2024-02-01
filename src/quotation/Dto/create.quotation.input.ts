@@ -15,6 +15,13 @@ export class CreateQuotationInput {
 
   @Field()
   status: string;
+
+  @Field(() => Int)
+  requestId:number;
+  
+  @Field(() => Int, { nullable: true })
+  purchaseRequestId?: number;
+  
 }
 
 @InputType()

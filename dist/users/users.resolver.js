@@ -21,6 +21,7 @@ const common_1 = require("@nestjs/common");
 const gql_auth_guard_1 = require("../auth/gql-auth-guard");
 const roles_gurd_1 = require("../auth/guards/roles.gurd");
 const update_user_input_1 = require("./dto/update-user.input");
+const ResetPasswordInput_entity_1 = require("../forgot-password/dto/ResetPasswordInput.entity");
 let UsersResolver = class UsersResolver {
     constructor(usersService) {
         this.usersService = usersService;
@@ -53,6 +54,21 @@ let UsersResolver = class UsersResolver {
     }
     async forgotPassword(email) {
         return this.usersService.forgotPassword(email);
+    }
+    async verifyUser(token) {
+        try {
+            const result = await this.usersService.verifyUser(token);
+            return result.success;
+        }
+        catch (error) {
+            console.log(error);
+            throw new Error('An error occurred during user verification.');
+        }
+    }
+    async resetPassword(input) {
+        const { email, password, token } = input;
+        const user = await this.usersService.resetPassword(email, password, token);
+        return user;
     }
 };
 exports.UsersResolver = UsersResolver;
@@ -113,6 +129,20 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersResolver.prototype, "forgotPassword", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => Boolean),
+    __param(0, (0, graphql_1.Args)('token')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersResolver.prototype, "verifyUser", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => user_entity_1.User),
+    __param(0, (0, graphql_1.Args)('input')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [ResetPasswordInput_entity_1.ResetPasswordInput]),
+    __metadata("design:returntype", Promise)
+], UsersResolver.prototype, "resetPassword", null);
 exports.UsersResolver = UsersResolver = __decorate([
     (0, graphql_1.Resolver)(() => user_entity_1.User),
     __metadata("design:paramtypes", [users_service_1.UsersService])

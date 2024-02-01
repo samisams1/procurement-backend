@@ -27,11 +27,29 @@ let PurchaseRequestResolver = class PurchaseRequestResolver {
     async purchaseRequest(id) {
         return this.purchaseRequestService.purchaseRequestsById(id);
     }
+    async purchaseRequestsByUSerId(userId) {
+        return this.purchaseRequestService.purchaseRequestsByUSerId(userId);
+    }
     async purchaseRequestBySupplier(id) {
         return this.purchaseRequestService.purchaseRequestsBySupplierId(id);
     }
+    async allPurchaseRequests() {
+        return this.purchaseRequestService.allPurchaseRequests();
+    }
     async purchaseRequests() {
         return this.purchaseRequestService.getAllPurchaseRequests();
+    }
+    async countrequests() {
+        const count = await this.purchaseRequestService.coutRequest();
+        return count;
+    }
+    async countPurchaseRequestBystatus(status, userId) {
+        const count = await this.purchaseRequestService.countPurchaseRequestByStatus(status, userId);
+        return count;
+    }
+    async countAllRequestBystatus(status) {
+        const count = await this.purchaseRequestService.countAllRequestBystatus(status);
+        return count;
     }
 };
 exports.PurchaseRequestResolver = PurchaseRequestResolver;
@@ -51,6 +69,13 @@ __decorate([
 ], PurchaseRequestResolver.prototype, "purchaseRequest", null);
 __decorate([
     (0, graphql_1.Query)(() => [purchase_request_entity_1.purchaseRequest]),
+    __param(0, (0, graphql_1.Args)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], PurchaseRequestResolver.prototype, "purchaseRequestsByUSerId", null);
+__decorate([
+    (0, graphql_1.Query)(() => [purchase_request_entity_1.purchaseRequest]),
     __param(0, (0, graphql_1.Args)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
@@ -61,7 +86,34 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
+], PurchaseRequestResolver.prototype, "allPurchaseRequests", null);
+__decorate([
+    (0, graphql_1.Query)(() => [purchase_request_entity_1.purchaseRequest]),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
 ], PurchaseRequestResolver.prototype, "purchaseRequests", null);
+__decorate([
+    (0, graphql_1.Query)(() => graphql_1.Int),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], PurchaseRequestResolver.prototype, "countrequests", null);
+__decorate([
+    (0, graphql_1.Query)(() => graphql_1.Int),
+    __param(0, (0, graphql_1.Args)('status')),
+    __param(1, (0, graphql_1.Args)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Number]),
+    __metadata("design:returntype", Promise)
+], PurchaseRequestResolver.prototype, "countPurchaseRequestBystatus", null);
+__decorate([
+    (0, graphql_1.Query)(() => graphql_1.Int),
+    __param(0, (0, graphql_1.Args)('status')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PurchaseRequestResolver.prototype, "countAllRequestBystatus", null);
 exports.PurchaseRequestResolver = PurchaseRequestResolver = __decorate([
     (0, graphql_1.Resolver)(),
     __metadata("design:paramtypes", [purchase_request_service_1.PurchaseRequestService])

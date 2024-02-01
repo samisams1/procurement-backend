@@ -24,6 +24,9 @@ export class CreateUserInput {
   @Field()
   password: string;
 
+  @Field()
+  categoryId:number;
+
 }
 
 @InputType()

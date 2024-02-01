@@ -18,9 +18,11 @@ constructor(private readonly orderService: OrderService) {}
   @Query(() => [OrderDetail])
   async getOrderDetailByOrderId(@Args('id') id: number) {
     return this.orderService.getOrderDetailByOrderId(id);
-  }
+  }  
+ 
+
   @Query(() => Order)
-  async getOrderById(@Args('id') id: number) {
+  async getOrderById(@Args('id', { type: () => Int }) id: number) {
     return this.orderService.getOrderById(id);
   }
   
@@ -31,6 +33,10 @@ constructor(private readonly orderService: OrderService) {}
   @Query(() => [Order])
   async getOrderByCustomerId(@Args('customerId') customerId: number) {
     return this.orderService.getOrderByCustomerId(customerId);
+  }
+  @Query(() => [Order])
+  async getApprovedOrderByCustomerId(@Args('customerId') customerId: number) {
+    return this.orderService.getApprovedOrderByCustomerId(customerId);
   }
   @Mutation(() => Order)
 async updateOrder(
@@ -44,7 +50,17 @@ async updateOrder(
 async countOrders(): Promise<number> {
   const count = await this.orderService.countOrder();
   return count;
-}
+} 
+@Query(() => Int)
+async countOrderBystatus(@Args('status') status:string, @Args('userId') userId:number ): Promise<number> {
+  const count = await this.orderService.countOrderByStatus(status,userId);
+  return count;
+} 
+@Query(() => Int)
+async countOAllrderByStatus(@Args('status') status:string ): Promise<number> {
+  const count = await this.orderService.countOAllrderByStatus(status);
+  return count;
+} 
 }
 
 

@@ -1,5 +1,9 @@
-import { ReportService } from './report.service';
+import { ReportService } from "src/report/report.service";
 export declare class ReportResolver {
-    private reportService;
+    private readonly reportService;
     constructor(reportService: ReportService);
+    monthlyReport(): Promise<{
+        month: string;
+        amount: number;
+    }[]>;
 }

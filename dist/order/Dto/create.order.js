@@ -19,6 +19,10 @@ __decorate([
     __metadata("design:type", String)
 ], CreateOrderDetailInput.prototype, "title", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => graphql_1.Int),
+    __metadata("design:type", Number)
+], CreateOrderDetailInput.prototype, "productId", void 0);
+__decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", Number)
 ], CreateOrderDetailInput.prototype, "price", void 0);

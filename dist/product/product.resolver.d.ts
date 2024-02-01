@@ -14,5 +14,6 @@ export declare class ProductResolver {
         manufacturer: string;
         model: string;
         requestId: number;
+        status: string;
     }[]>;
 }

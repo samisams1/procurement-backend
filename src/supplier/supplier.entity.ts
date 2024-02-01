@@ -5,22 +5,20 @@ import { User } from 'src/users/entities/user.entity';
 export class supplier {
   @Field(() => Int)
   id: number;
+
+  @Field(()=>String)
+  name:string;
   
-  @Field()
-  name: String;
+  @Field(() => Int)
+  categoryId: number;
 
-  @Field()
-  email: String;
-
-
+  
   @Field(() => User)
   user: User;
 
-  @Field()
-  createdAt: Date;;
+  @Field(() => Int)
+  userId: number;
 
-  @Field()
-  updatedAt: Date;
 }
 
 

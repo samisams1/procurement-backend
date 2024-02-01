@@ -30,6 +30,22 @@ __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
 ], CreatePurchaseRequestInput.prototype, "status", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreatePurchaseRequestInput.prototype, "remark", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreatePurchaseRequestInput.prototype, "addressDetail", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreatePurchaseRequestInput.prototype, "estimatedDelivery", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], CreatePurchaseRequestInput.prototype, "selectedType", void 0);
 exports.CreatePurchaseRequestInput = CreatePurchaseRequestInput = __decorate([
     (0, graphql_1.InputType)()
 ], CreatePurchaseRequestInput);

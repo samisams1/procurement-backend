@@ -22,10 +22,6 @@ __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
 ], supplier.prototype, "name", void 0);
-__decorate([
-    (0, graphql_1.Field)(),
-    __metadata("design:type", String)
-], supplier.prototype, "email", void 0);
 exports.supplier = supplier = __decorate([
     (0, graphql_1.ObjectType)()
 ], supplier);

@@ -26,6 +26,10 @@ __decorate([
     __metadata("design:type", user_entity_1.User)
 ], purchaseRequest.prototype, "user", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], purchaseRequest.prototype, "referenceNumber", void 0);
+__decorate([
     (0, graphql_1.Field)(() => [product_entity_1.product]),
     __metadata("design:type", Array)
 ], purchaseRequest.prototype, "products", void 0);
@@ -37,6 +41,18 @@ __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
 ], purchaseRequest.prototype, "status", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], purchaseRequest.prototype, "addressDetail", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], purchaseRequest.prototype, "estimatedDelivery", void 0);
+__decorate([
+    (0, graphql_1.Field)(),
+    __metadata("design:type", String)
+], purchaseRequest.prototype, "remark", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [supplier_entity_1.supplier]),
     __metadata("design:type", Array)

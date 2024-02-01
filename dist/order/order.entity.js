@@ -11,6 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderDetail = exports.Order = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const product_entity_1 = require("../product/product.entity");
+const purchase_request_entity_1 = require("../purchase-request/purchase-request.entity");
+const supplier_entity_1 = require("../supplier/supplier.entity");
 let Order = class Order {
 };
 exports.Order = Order;
@@ -31,6 +34,10 @@ __decorate([
     __metadata("design:type", Array)
 ], Order.prototype, "orderDetails", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => purchase_request_entity_1.purchaseRequest),
+    __metadata("design:type", purchase_request_entity_1.purchaseRequest)
+], Order.prototype, "purchaseRequest", void 0);
+__decorate([
     (0, graphql_1.Field)(() => graphql_1.Int),
     __metadata("design:type", Number)
 ], Order.prototype, "totalPrice", void 0);
@@ -38,6 +45,10 @@ __decorate([
     (0, graphql_1.Field)(() => graphql_1.Float),
     __metadata("design:type", Number)
 ], Order.prototype, "tax", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], Order.prototype, "referenceNumber", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     __metadata("design:type", String)
@@ -50,6 +61,14 @@ __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", Date)
 ], Order.prototype, "createdAt", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [supplier_entity_1.supplier]),
+    __metadata("design:type", Array)
+], Order.prototype, "customer", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [supplier_entity_1.supplier]),
+    __metadata("design:type", Array)
+], Order.prototype, "suppliers", void 0);
 exports.Order = Order = __decorate([
     (0, graphql_1.ObjectType)()
 ], Order);
@@ -76,6 +95,14 @@ __decorate([
     (0, graphql_1.Field)(() => graphql_1.Int),
     __metadata("design:type", Number)
 ], OrderDetail.prototype, "quantity", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => graphql_1.Int),
+    __metadata("design:type", Number)
+], OrderDetail.prototype, "productId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => product_entity_1.product),
+    __metadata("design:type", product_entity_1.product)
+], OrderDetail.prototype, "product", void 0);
 exports.OrderDetail = OrderDetail = __decorate([
     (0, graphql_1.ObjectType)()
 ], OrderDetail);

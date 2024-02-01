@@ -5,6 +5,7 @@ export declare class CreateUserInput {
     role: EnumRole;
     lastName: string;
     password: string;
+    categoryId: number;
 }
 export declare class ChangePasswordInput {
     currentPassword: string;

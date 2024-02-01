@@ -3,5 +3,6 @@ export declare class PrismaService {
     private prisma;
     get user(): import(".prisma/client").Prisma.UserDelegate<import("@prisma/client/runtime/library").DefaultArgs>;
     get product(): import(".prisma/client").Prisma.ProductDelegate<import("@prisma/client/runtime/library").DefaultArgs>;
+    get verification(): import(".prisma/client").Prisma.VerificationDelegate<import("@prisma/client/runtime/library").DefaultArgs>;
     onModuleDestroy(): Promise<void>;
 }

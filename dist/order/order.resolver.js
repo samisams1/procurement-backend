@@ -39,12 +39,23 @@ let OrderResolver = class OrderResolver {
     async getOrderByCustomerId(customerId) {
         return this.orderService.getOrderByCustomerId(customerId);
     }
+    async getApprovedOrderByCustomerId(customerId) {
+        return this.orderService.getApprovedOrderByCustomerId(customerId);
+    }
     async updateOrder(id, status) {
         const updatedOrder = await this.orderService.updateOrder(id, status);
         return updatedOrder;
     }
     async countOrders() {
         const count = await this.orderService.countOrder();
+        return count;
+    }
+    async countOrderBystatus(status, userId) {
+        const count = await this.orderService.countOrderByStatus(status, userId);
+        return count;
+    }
+    async countOAllrderByStatus(status) {
+        const count = await this.orderService.countOAllrderByStatus(status);
         return count;
     }
 };
@@ -71,7 +82,7 @@ __decorate([
 ], OrderResolver.prototype, "getOrderDetailByOrderId", null);
 __decorate([
     (0, graphql_1.Query)(() => order_entity_1.Order),
-    __param(0, (0, graphql_1.Args)('id')),
+    __param(0, (0, graphql_1.Args)('id', { type: () => graphql_1.Int })),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
@@ -91,6 +102,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], OrderResolver.prototype, "getOrderByCustomerId", null);
 __decorate([
+    (0, graphql_1.Query)(() => [order_entity_1.Order]),
+    __param(0, (0, graphql_1.Args)('customerId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], OrderResolver.prototype, "getApprovedOrderByCustomerId", null);
+__decorate([
     (0, graphql_1.Mutation)(() => order_entity_1.Order),
     __param(0, (0, graphql_1.Args)('id')),
     __param(1, (0, graphql_1.Args)('status')),
@@ -104,6 +122,21 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], OrderResolver.prototype, "countOrders", null);
+__decorate([
+    (0, graphql_1.Query)(() => graphql_1.Int),
+    __param(0, (0, graphql_1.Args)('status')),
+    __param(1, (0, graphql_1.Args)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Number]),
+    __metadata("design:returntype", Promise)
+], OrderResolver.prototype, "countOrderBystatus", null);
+__decorate([
+    (0, graphql_1.Query)(() => graphql_1.Int),
+    __param(0, (0, graphql_1.Args)('status')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], OrderResolver.prototype, "countOAllrderByStatus", null);
 exports.OrderResolver = OrderResolver = __decorate([
     (0, graphql_1.Resolver)(),
     __metadata("design:paramtypes", [order_service_1.OrderService])

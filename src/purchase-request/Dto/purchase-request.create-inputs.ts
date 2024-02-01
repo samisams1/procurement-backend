@@ -14,10 +14,22 @@ export class CreatePurchaseRequestInput {
   @Field()
   status: string;
 
+  @Field()
+  remark?: string;
+
+  @Field()
+  addressDetail?: string;
+
+  @Field()
+  estimatedDelivery?: string;
+
+  @Field()
+  selectedType?:string;
 }
 
 @InputType()
 export class CreateProductInput {
+ 
   @Field()
   title: string;
 
@@ -47,6 +59,10 @@ export class CreateProductInput {
 
   @Field()
   model?: string;
+
+  
+ 
+  
 }
 
 @InputType()

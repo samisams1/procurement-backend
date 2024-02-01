@@ -2,6 +2,7 @@ import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { ChangePasswordInput, CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { ResetPasswordInput } from 'src/forgot-password/dto/ResetPasswordInput.entity';
 export declare class UsersResolver {
     private readonly usersService;
     constructor(usersService: UsersService);
@@ -13,4 +14,6 @@ export declare class UsersResolver {
     countUsers(): Promise<number>;
     changePassword(userId: number, changePasswordInput: ChangePasswordInput): Promise<User>;
     forgotPassword(email: string): Promise<boolean>;
+    verifyUser(token: string): Promise<boolean>;
+    resetPassword(input: ResetPasswordInput): Promise<User>;
 }

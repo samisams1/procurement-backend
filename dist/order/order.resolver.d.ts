@@ -10,6 +10,9 @@ export declare class OrderResolver {
     getOrderById(id: number): Promise<Order>;
     getOrderBySupplierId(supplierId: number): Promise<Order[]>;
     getOrderByCustomerId(customerId: number): Promise<Order[]>;
+    getApprovedOrderByCustomerId(customerId: number): Promise<Order[]>;
     updateOrder(id: number, status: string): Promise<Order>;
     countOrders(): Promise<number>;
+    countOrderBystatus(status: string, userId: number): Promise<number>;
+    countOAllrderByStatus(status: string): Promise<number>;
 }

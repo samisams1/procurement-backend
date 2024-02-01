@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client'; // Import the verification model
 
 @Injectable()
 export class PrismaService {
@@ -13,8 +13,12 @@ export class PrismaService {
     return this.prisma.user;
   }
 
-  get product(){
-    return this.prisma.product
+  get product() {
+    return this.prisma.product;
+  }
+
+  get verification() {
+    return this.prisma.verification; // Getter for the verification model
   }
 
   // Other Prisma models
